@@ -1,0 +1,40 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+
+function switchTabs(tabWindowId, tabId){
+        safari.extension.globalPage.contentWindow.console.log("Send to SwitchTabs");
+        safari.extension.globalPage.contentWindow.switchTabs(tabWindowId, tabId);
+        safari.self.hide();
+        safari.extension.globalPage.contentWindow.console.log("Sent to SwitchTabs");
+}
+
+var mySafari = safari.application;
+var myWindows = safari.application.browserWindows;
+
+
+function createPopOver(){
+    document.write('<table id="grid"><tr>');
+
+    for (var i=0; i < myWindows.length; ++i){
+        var myTabs = myWindows[i].tabs;
+            for (var t = 0; t< myTabs.length; t++){
+            document.write("<td> <a href=\"javascript:void(0)\" ");
+            document.write("onClick=\"switchTabs(" +i + "," + t + ");\">" + myTabs[t].title +"</a>");
+            document.write("</td></tr><tr>");
+            }   
+    }
+}    
+
+safari.application.addEventListener("popover", createPopOver, true);
+
+
+
+</script>
+
+
+
+</body>
+</html>

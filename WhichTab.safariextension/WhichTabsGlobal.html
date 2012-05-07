@@ -1,0 +1,44 @@
+<html>
+
+<head>
+</head>
+
+<script>
+	function performCommand(event) {
+        if (event.command == "open-whichtab"){
+            var newTab = safari.application.activeBrowserWindow.openTab(); // Open a new tab  
+            newTab.url = "http://net.tutsplus.com/"; // Set tab URL to nettuts  
+        }
+	}
+    
+    function popoverHandler(event) {
+        console.log("popover event");
+        safari.extension.popovers[0].contentWindow.location.reload()
+
+    }
+    
+    function switchTabs(tabWindowId, tabId){
+        try {
+        console.log(tabWindowId +" , "+ tabId);
+        console.log("Got to SwitchTabs");  
+        var myWindow = safari.application.browserWindows[tabWindowId];
+        console.log("Got a window");
+        myWindow.activate();
+        console.log("Tried to activate; On to open tab");
+        myTab = myWindow.tabs[tabId];
+        myTab.activate();
+        console.log("Exit SwitchTabs");
+        } catch ( e ) {
+      console.log("Error: " + e.description );
+      console.log("Error: " + e.message );
+        }
+    }
+
+
+	//safari.application.addEventListener("command", performCommand, false);
+    safari.application.addEventListener("popover", popoverHandler, true);
+
+    
+</script>
+
+</html>
