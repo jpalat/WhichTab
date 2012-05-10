@@ -13,10 +13,33 @@
     
     function popoverHandler(event) {
         console.log("popover event");
+        try{
         safari.extension.popovers[0].contentWindow.location.reload()
-
+        } catch (e){
+            console.log(e.message);
+        }
     }
     
+    function getTabs(){
+        var mySafari = safari.application;
+        var myWindows = safari.application.browserWindows;
+        var tablist = []
+        for (var i=0; i < myWindows.length; ++i){
+
+            var myTabs = myWindows[i].tabs;
+            for (var t = 0; t< myTabs.length; t++){
+                console.log("Position: " +i +" : " +t);
+                tablist.push([i, t, myTabs[t].title, myTabs[t].url]);
+                console.log("createdItem");
+                
+            }
+        }
+        return tablist;
+    
+    }
+
+
+
     function switchTabs(tabWindowId, tabId){
         try {
         console.log(tabWindowId +" , "+ tabId);
@@ -37,6 +60,9 @@
 
 	//safari.application.addEventListener("command", performCommand, false);
     safari.application.addEventListener("popover", popoverHandler, true);
+    //safari.application.addEventListener("validate", popoverHandler, true);
+
+    //safari.extension.popovers[0].contentWindow.location.reload()
 
     
 </script>
