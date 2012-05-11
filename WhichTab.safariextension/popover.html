@@ -3,12 +3,13 @@
 
 <script type="text/javascript">
 
-varTabList[] = [];
+safari.extension.globalPage.contentWindow.console.log("Going to CreatePopOver ");
 
 function switchTabs(tabWindowId, tabId){
         safari.extension.globalPage.contentWindow.console.log("Send to SwitchTabs");
-        safari.extension.globalPage.contentWindow.switchTabs(tabWindowId, tabId);
         safari.self.hide();
+
+        safari.extension.globalPage.contentWindow.switchTabs(tabWindowId, tabId);
         safari.extension.globalPage.contentWindow.console.log("Sent to SwitchTabs");
 }
 
@@ -17,18 +18,38 @@ function switchTabs(tabWindowId, tabId){
 function createPopOver(){
 
     safari.extension.globalPage.contentWindow.console.log("CreatePopOver ");
-
-    var myTabs = safari.extension.globalPage.contentWindow.getTabs();
-
+    try{
+    
+    //myTabs = safari.extension.globalPage.contentWindow.getTabs();
+    myTabs = safari.extension.globalPage.contentWindow.tablist;
+    
     safari.extension.globalPage.contentWindow.console.log("Tablength: " + myTabs.length);
+    } catch (e){
+        console.log(e.message);
+    }
 
-    document.write('<table id="grid"><tr>');
+    var table = document.getElementById("tabs");
+    table.innerHTML = "";
+    table.rows.length = 0;
+
 
     for (var t = 0; t< myTabs.length; t++){
-        document.write("<td> <a href=\"javascript:void(0)\" ");
-        document.write("onClick=\"switchTabs(" +myTabs[t][0] + "," + myTabs[t][1]  + ");\">" + myTabs[t][2] +"</a>");
-        document.write("</td></tr><tr>");
-        }   
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var cell1 = row.insertCell(0);
+        var tabID = document.createElement('a');
+        var myaction =  'switchTabs(' + myTabs[t][0] + ',' +  myTabs[t][1]+ ')';
+
+        safari.extension.globalPage.contentWindow.console.log(myaction);
+
+
+        tabID.setAttribute('onClick', myaction);
+        tabID.setAttribute('href', 'javascript:void(0)');
+        tabID.setAttribute('name', myTabs[t][2]);
+        tabID.innerHTML = myTabs[t][2];
+        cell1.appendChild(tabID);
+    }
     
 }    
 
@@ -37,7 +58,8 @@ safari.application.addEventListener("popover", createPopOver, true);
 
 
 </script>
-
+<input type="text" onclick="filterRows">
+<table id="tabs">
 
 
 </body>
