@@ -3,7 +3,7 @@
 <style type="text/css">
 table.whichtab {
 	border: 1px inset #8B8378;
-	-moz-border-radius: 6px;
+	-moz-border-radius: 3px;
 }
 table.whichtab td {
 	border: 1px solid black;
@@ -54,9 +54,12 @@ function createPopOver(){
 }    
 
 function writeList(myList){
+    var size = document.getElementById("tsize");
+
     var table = document.getElementById("tabs");
     table.innerHTML = "";
     table.rows.length = 0;
+    tsize.innerHTML = " Number of Tabs: " + myList.length;
 
 
     for (var t = 0; t< myList.length; t++){
@@ -106,11 +109,12 @@ safari.application.addEventListener("popover", createPopOver, true);
 
 
 </script>
-<input type=text name=t1 id=t1 value="" size=25 style="width:300px;"
+<div id="tsize"></div>
+
+<input type=text name=t1 id=t1 value="" size=25 style="width:260px;"
  onkeypress="filterList(this.value)"
  onkeyup   ="filterList(this.value)"
->
-<table id="tabs" class="whichtab">
+><table id="tabs" class="whichtab">
 
 
 </body>
