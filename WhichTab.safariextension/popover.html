@@ -1,6 +1,20 @@
 <html>
 <head>
 <style type="text/css">
+
+body {
+padding: 10px 10px;
+margin: 0;  
+font-family: "helvetica neue", helvetica, sans-serif;
+font-weight: 400;
+font-size: 15px;
+}
+
+a {
+    font-family: "helvetica neue", helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}
 table.whichtab {
 	border: 1px inset #8B8378;
 	-moz-border-radius: 3px;
@@ -73,15 +87,24 @@ function writeList(myList){
 
         var cell1 = row.insertCell(0);
         var tabID = document.createElement('a');
-        var myaction =  'switchTabs(' + myList[t][0] + ',' +  myList[t][1]+ ')';
+        var myaction =  'switchTabs(' + myList[t].windowID + ',' +  myList[t].tabId+ ')';
 
 
 
         tabID.setAttribute('onClick', myaction);
         tabID.setAttribute('href', 'javascript:void(0)');
-        tabID.setAttribute('name', myList[t][2]);
-        tabID.innerHTML = myList[t][2];
+        tabID.setAttribute('name', myList[t].title);
+
+        var trunkedURL =  myList[t].url.substring(0,50);
+        if (myList[t].url.length > 50) {
+            trunkedURL = trunkedURL +  "..."
+        }
+        
+        tabID.innerHTML = myList[t].title + "<br>" + trunkedURL;
+        //var subtitle = document.createElement('p');
+        //subtitle.innerHTML = myList[t].url;
         cell1.appendChild(tabID);
+        //cell1.appendChild(subtitle);
     }
 
 }
@@ -94,7 +117,7 @@ function filterList(mystr){
     var filtered = myTabs.filter(function(item){
     // safari.extension.globalPage.contentWindow.console.log(mystr + " ? "+item[2]);
    
-     return item[2].match(regex)
+     return (item.title.match(regex) || item.url.match(regex))
     });
 
     if (mystr.length == 0 ){

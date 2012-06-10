@@ -38,8 +38,11 @@
 
             var myTabs = myWindows[i].tabs;
             for (var t = 0; t< myTabs.length; t++){
+                tab = myTabs[t];
+                favicon = /http:\/\/[1-9a-zA-Z.\-]+\//.exec(tab.url);
+                favicon = favicon && favicon[0] ? favicon[0] + 'favicon.ico' : '';
                 console.log("Position: " +i +" : " +t);
-                tablist.push([i, t, myTabs[t].title, myTabs[t].url]);
+                tablist.push({windowID:i, tabId:t, title:myTabs[t].title, url:myTabs[t].url, favicon:favicon});
                 console.log("createdItem"+ tablist.length);
                 
                 

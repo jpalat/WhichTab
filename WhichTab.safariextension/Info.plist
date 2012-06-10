@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Jay Palat</string>
 	<key>Builder Version</key>
-	<string>7534.55.3</string>
+	<string>7534.57.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>WhichTab</string>
 	<key>CFBundleIdentifier</key>
@@ -26,11 +26,11 @@
 				<key>Filename</key>
 				<string>popover.html</string>
 				<key>Height</key>
-				<real>320</real>
+				<real>250</real>
 				<key>Identifier</key>
 				<string>tablist</string>
 				<key>Width</key>
-				<real>250</real>
+				<real>500</real>
 			</dict>
 		</array>
 		<key>Toolbar Items</key>
@@ -41,11 +41,13 @@
 				<key>Identifier</key>
 				<string>whichtab</string>
 				<key>Image</key>
-				<string>icon.png</string>
+				<string>Icon.png</string>
 				<key>Include By Default</key>
 				<true/>
 				<key>Label</key>
 				<string>WhichTab</string>
+				<key>Palette Label</key>
+				<string>a</string>
 				<key>Popover</key>
 				<string>tablist</string>
 			</dict>
